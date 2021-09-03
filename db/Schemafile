@@ -1,0 +1,23 @@
+create_table "dental_disease_counts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  t.string   "disease_group", null: false
+  t.string   "code", null: false
+  t.string   "name", null: false
+  t.string   "sex"
+  t.integer  "age_upper", unsigned: true
+  t.integer  "age_lower", unsigned: true
+  t.integer  "count", unsigned: true
+  t.boolean  "is_total", null: false, default: false
+end
+
+create_table "dental_practice_counts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  t.string   "category_code", null: false
+  t.string   "classification_name", null: false
+  t.string   "code", null: false
+  t.string   "name", null: false
+  t.integer  "score", null: false, unsigned: true
+  t.string   "sex"
+  t.integer  "age_upper", unsigned: true
+  t.integer  "age_lower", unsigned: true
+  t.integer  "count", unsigned: true
+  t.boolean  "is_total", null: false, default: false
+end

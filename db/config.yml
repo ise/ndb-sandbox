@@ -1,0 +1,7 @@
+adapter: mysql2
+encoding: utf8
+host: mariadb
+port: 3306
+database: ndb_sandbox
+username: root
+password: password

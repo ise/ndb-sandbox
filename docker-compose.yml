@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  ruby:
+    image: ndb-sandbox-rb:1
+    volumes:
+      - .:/usr/src/app
+      - usr-local-bundle-data:/usr/local/bundle
+    working_dir: /usr/src/app
+    build:
+      dockerfile: ./Dockerfile
+    command: bundle install
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:10.5
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: password
+    ports:
+      - '18080:80'
+    volumes:
+      - phpmyadmin-sessions:/sessions
+    depends_on:
+      - mariadb
+
+volumes:
+  usr-local-bundle-data:
+  mariadb-data:
+  phpmyadmin-sessions:
